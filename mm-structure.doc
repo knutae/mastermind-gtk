@@ -1,0 +1,46 @@
+This is a GTK+-version of mastermind.  This file is my attempt to get some
+thoughts down on "paper" before I start coding...
+
+Classes/structs:
+
+Mastermind:  contains all graphical and logical info about the game.
+1 object only, so I won't actually make it a struct.  (in c++, I probaly
+would make it a class, but I'll just skip it)
+
+MmField:  The places where you put the colors.  Can be empty or contain a
+color.  Two states; active and inactive -- active ones can be changed by the
+user.
+Contains:  color (0..8), GtkWidget
+Functions: mmFieldSetColor(field, 0..8)
+
+MmSolutionSeq:  The secret color sequence.  Contains four fields.  Are revealed
+after the game.
+Contains:  MmField[4], GtkBox (hbox)
+Functions: mmSolutionSeqInit(solseq), mmSolutionSeqShow(solseq),
+	   mmSolutionSeqNew(solseq)
+
+MmTrySeq:  One user attempt, four fields.  Mastermind contains ten of these.
+Contains:  MmField[4], handler[4], MmFeedback, GtkBox (hbox)
+Functions: mmTrySeqEval(seq, solseq), mmTrySeqSetActive|Inactive(solseq),
+	   mmTrySeqInit(seq), mmTrySeqNew(seq)
+
+MmBW:  Black/White "feedback element".  Empty, black or white.
+Contains:  color (0..2), GtkWidget
+Functions: mmBWSetColor(bw, 0..2)
+
+Feedback:  Four BWs, giving feedback to the user.
+Contains:  MmBW[4], GtkTable
+Functions: mmFeedbackSetColors(feedback, blacks, whites),
+	   mmFeedbackInit(feedback), mmFeedBackNew(feedback)
+
+Global stuff (these would be in MmMastermind if I made it):
+1 MmSolutionSeq, 10 MmTrySeq
+GtkBox (vbox containing MmSolutionSeq and 10 MmTrySeq)
+3 Buttons (try, give up, quit)
+
+Global functions:  newTry(), newGame(), main()
+
+Note:  this file is not fully up to date, but can probably still be of use
+if you want to understand the source.  Good luck... :-)
+
+Knut Arild Erstad, knute@ii.uib.no

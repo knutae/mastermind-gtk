@@ -1,0 +1,18 @@
+# Makefile for Sun cc compiler
+
+CC = cc
+GTKCONFIG = gtk-config
+
+CFLAGS = -fast `$(GTKCONFIG) --cflags` -DNDEBUG -DG_INLINE_FUNC=extern
+LFLAGS = -fast `$(GTKCONFIG) --libs`
+
+all: mastermind
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $<
+
+mastermind: mm.o
+	$(CC) -o mastermind mm.o $(LFLAGS)
+
+clean:
+	rm -f *.o *~
